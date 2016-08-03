@@ -1,4 +1,4 @@
-NAME=control_temp_indicator
+NAME=control_indicator
 
 $(NAME).agc.bin: $(NAME).agc
 	yaYUL $< > $(NAME).lst
