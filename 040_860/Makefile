@@ -8,6 +8,6 @@ run: $(NAME).agc.bin
 	yaAGC --port=19797 $<
 
 clean:
-	rm -f *~ *.lst *.bin *.symtab
+	rm -f *~ *.lst *.bin *.symtab core
 
 .PHONY: run clean

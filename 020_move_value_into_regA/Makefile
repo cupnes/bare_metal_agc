@@ -7,6 +7,6 @@ run: $(NAME).agc.bin
 	yaAGC $<
 
 clean:
-	rm -f *~ *.lst *.bin *.symtab
+	rm -f *~ *.lst *.bin *.symtab core
 
 .PHONY: run clean
