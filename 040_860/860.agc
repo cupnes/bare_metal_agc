@@ -1,0 +1,29 @@
+		SETLOC	4000
+
+		CAF	PUT8
+		EXTEND
+		WRITE	OUT0
+
+		CAF	PUT60
+		EXTEND
+		WRITE	OUT0
+
+		CAF	CLR
+		EXTEND
+		WRITE	OUT0
+
+END		TC	END
+
+# 0b0111 0 00000 11101
+PUT8		OCT	34035
+
+# 0b0110 0 11100 10101
+PUT60		OCT	31625
+
+# 0b1100 0 00000 00000
+CLR		OCT	60000
+
+OUT0		EQUALS	10
+
+# reference
+# http://www.ibiblio.org/apollo/developer.html#Table_of_IO_Channels
