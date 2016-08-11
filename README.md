@@ -24,7 +24,7 @@ Wdinwos 10とDebian 8(共にamd64)で確認しています。
 以下からインストーラーをダウンロードし、インストールしてください。
 
 - [Virtual AGC Download Page](http://www.ibiblio.org/apollo/download.html#Downloads)
-  - "VirtualAGC-installer"のリンクです
+  - "Pre-built Win32 installer"の"VirtualAGC-setup.exe"のリンクです
 
 ### パスを通す ###
 
@@ -64,9 +64,11 @@ yaDSKY2はインストール先フォルダ直下のResourcesフォルダ内で�
 ## Linux(Debian)の場合 ##
 
 yaYUL・yaAGC・yaDKSY2は、Linux版もビルド済バイナリがあるのですが、
-32ビット環境用の実行バイナリだったので、ソースコードからビルドしてみました。
-(ロードする共有ライブラリのパスが32ビット環境用のパスでした。
-32ビット用のクロスライブラリを配置しても良かったかもしれません。)
+~~32ビット環境用の実行バイナリだったので、~~ソースコードからビルドしてみました。
+~~(ロードする共有ライブラリのパスが32ビット環境用のパスでした。
+32ビット用のクロスライブラリを配置しても良かったかもしれません。)~~
+
+2016/08/07に"Pre-built Linux installer"が更新され、64bit版も公開されました。以降ではソースコードからビルド・インストールを行う手順を紹介しますが、インストーラーを使用してビルド済みバイナリをインストールしても良いかもしれません(当方未確認)。
 
 ### インストールしたパッケージ ###
 
@@ -84,7 +86,7 @@ WxWidget関連のパッケージをインストールします。
 このソースコードアーカイブの中に、使用する全てのソースコードが入っています。
 
 http://www.ibiblio.org/apollo/download.html#Downloads
-※ "yaAGC-dev-20100220.tar.bz2"をダウンロード(2016/08/06 時点)
+※ "Current source-code repository"の"From GitHub"のリンクからソースコードをダウンロード
 
 なお、展開したディレクトリ直下にMakefileがありますが、
 サブディレクトリのMakefileには、Debian 8環境に対応していないものがあります。
@@ -98,7 +100,7 @@ http://www.ibiblio.org/apollo/download.html#Downloads
 以下の手順でビルドできました。
 
 	$ cd yaYUL
-	$ make NVER='\"20100220\"' CFLAGS=-DALLOW_BSUB
+	$ make
 
 ビルドが完了すると、実行バイナリ"yaYUL"が生成されています。
 
@@ -116,18 +118,16 @@ http://www.ibiblio.org/apollo/download.html#Downloads
 以下のようにMakefileを修正してください。
 
 ```
---- Makefile.orig       2016-07-31 17:44:50.314242533 +0900
-+++ Makefile    2016-07-31 17:48:36.612275979 +0900
-@@ -86,9 +86,9 @@
+@@ -99,9 +99,9 @@ HEADERS:=${APPNAME}.h
 
  ${APPNAME}: ${SOURCES} ${HEADERS}
         g++ \
--               `wx-config ${WXSTATIC} --cxxflags` \
+-               `wx-config --cxxflags` \
 +               `/usr/lib/x86_64-linux-gnu/wx/config/gtk2-unicode-3.0 --cxxflags` \
                 -o $@ ${SOURCES} \
--               `wx-config ${WXSTATIC} --libs` \
+-               `wx-config --libs` \
 +               `/usr/lib/x86_64-linux-gnu/wx/config/gtk2-unicode-3.0 --libs` \
-                ${LIBS2}
+                ${LIBS2} -lX11
         strip $@${EXT}
 ```
 
